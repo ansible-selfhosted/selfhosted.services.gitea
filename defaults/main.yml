@@ -1,0 +1,4 @@
+---
+# defaults file for services.gitea
+
+published_port: 8080
