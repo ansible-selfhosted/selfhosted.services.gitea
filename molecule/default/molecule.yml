@@ -3,7 +3,17 @@ role_name_check: 1
 driver:
   name: podman
 platforms:
-  - name: instance
+  - name: gitea_w_psql
+    image: "quay.io/speakintelnet/pinp-molecule"
+    privileged: true
+    pre_build_image: true
+    systemd: true
+  - name: gitea_w_mysql
+    image: "quay.io/speakintelnet/pinp-molecule"
+    privileged: true
+    pre_build_image: true
+    systemd: true
+  - name: gitea_w_sqlite
     image: "quay.io/speakintelnet/pinp-molecule"
     privileged: true
     pre_build_image: true
@@ -12,7 +22,14 @@ provisioner:
   name: ansible
   inventory:
     host_vars:
-      instance:
+      gitea_w_psql:
+        gitea_db_backend: psql
+        ansible_user: podman
+      gitea_w_mysql:
+        gitea_db_backend: mysql
+        ansible_user: podman
+      gitea_w_sqlite:
+        gitea_db_backend: sqlite
         ansible_user: podman
 verifier:
   name: ansible

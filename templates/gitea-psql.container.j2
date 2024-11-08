@@ -1,0 +1,16 @@
+[Unit]
+Description="A powerful, open source object-relational database"
+
+[Container]
+Environment=POSTGRES_USER=gitea
+Environment=POSTGRES_PASSWORD=gitea
+Environment=POSTGRES_DB=gitea
+Image=docker.io/postgres:14
+Pod=gitea.pod
+Volume={{ gitea_db_path }}:/var/lib/postgresql/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

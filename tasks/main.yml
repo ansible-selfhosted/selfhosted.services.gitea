@@ -6,6 +6,36 @@
     state: present
   register: user_info
 
+- name: Normalize default paths
+  ansible.builtin.set_fact:
+    gitea_config_path: "{{
+      gitea_config_path | replace('<ansible user home>', user_info.home)
+      }}"
+    gitea_data_path: "{{
+      gitea_data_path | replace('<ansible user home>', user_info.home)
+      }}"
+    gitea_db_path: "{{
+      gitea_db_path | replace('<ansible user home>', user_info.home)
+      }}"
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0750"
+    recurse: true
+  loop:
+    - "{{ gitea_config_path }}"
+    - "{{ gitea_data_path }}"
+
+- name: Create database directory
+  ansible.builtin.file:
+    path: "{{ gitea_db_path }}"
+    state: directory
+    mode: "0700"
+    recurse: true
+  when: gitea_db_backend != 'sqlite'
+
 - name: Put container related files on the host
   ansible.builtin.template:
     src: "{{ item.src }}"
@@ -13,13 +43,24 @@
     mode: "0640"
   loop:
     - {
-      "src": "httpd.container.j2",
-      "dest": "{{ user_info.home }}/.config/containers/systemd/httpd.container",
+      "src": "gitea-server.container.j2",
+      "dest": "{{ user_info.home }}/.config/containers/systemd/gitea-server.container",
     }
+    - {
+      "src": "gitea.pod.j2",
+      "dest": "{{ user_info.home }}/.config/containers/systemd/gitea.pod",
+    }
+
+- name: Put dabase related files on the host
+  ansible.builtin.template:
+    src: "gitea-{{ gitea_db_backend }}.container.j2"
+    dest: "{{ user_info.home }}/.config/containers/systemd/gitea-db.container"
+    mode: "0640"
+  when: gitea_db_backend != 'sqlite'
 
 - name: Start the container service
   ansible.builtin.systemd:
-    name: httpd
+    name: gitea-pod
     state: started
     scope: user
     enabled: true

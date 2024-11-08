@@ -1,0 +1,30 @@
+[Unit]
+Description="Private, Fast, Reliable DevOps Platform"
+{% if gitea_db_backend != "sqlite" %}
+Requires=gitea-db.service
+After=gitea-db.service
+{% endif %}
+
+[Container]
+ContainerName=gitea
+{% if gitea_db_backend == "psql" %}
+Environment=GITEA__database__DB_TYPE=postgres
+Environment=GITEA__database__HOST=127.0.0.1:5432
+{% elif gitea_db_backend == "mysql" %}
+Environment=GITEA__database__DB_TYPE=mysql
+Environment=GITEA__database__HOST=127.0.0.1:3306
+{% endif %}
+Environment=GITEA__database__NAME=gitea
+Environment=GITEA__database__USER=gitea
+Environment=GITEA__database__PASSWD=gitea
+AutoUpdate=registry
+Image=docker.io/gitea/gitea:latest
+Pod=gitea.pod
+Volume={{ gitea_data_path }}:/var/lib/gitea:Z
+Volume={{ gitea_config_path }}:/etc/gitea:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

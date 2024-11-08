@@ -1,5 +1,4 @@
 ---
-
 argument_specs:
   main:
     short_description: Main entry point for the gitea role
@@ -9,7 +8,36 @@ argument_specs:
     author:
       - SpeakinTelnet
     options:
-      published_port:
+      gitea_data_path:
+        type: "str"
+        required: false
+        default: /var/lib/gitea
+        description:
+          - "The path to the Gitea data directory."
+      gitea_db_backend:
+        type: "str"
+        required: false
+        default: psql
+        choices:
+          - psql
+          - mysql
+          - sqlite
+        description:
+          - "The database backend to use."
+
+      gitea_db_path:
+        type: "str"
+        required: false
+        default: /var/lib/gitea
+        description:
+          - "The path to the Gitea database directory."
+      gitea_ssh_port:
+        type: "int"
+        required: false
+        default: 2222
+        description:
+          - "The default port for the SSH server."
+      gitea_web_port:
         type: "int"
         required: false
         default: 8080

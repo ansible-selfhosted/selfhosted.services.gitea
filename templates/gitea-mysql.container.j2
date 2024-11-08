@@ -1,0 +1,17 @@
+[Unit]
+Description="An open-source relational database management system"
+
+[Container]
+Environment=MYSQL_ROOT_PASSWORD=gitea
+Environment=MYSQL_USER=gitea
+Environment=MYSQL_PASSWORD=gitea
+Environment=MYSQL_DATABASE=gitea
+Image=docker.io/mysql:8
+Pod=gitea.pod
+Volume={{ gitea_db_path }}:/var/lib/postgresql/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
