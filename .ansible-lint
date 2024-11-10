@@ -1,3 +1,5 @@
+---
 skip_list:
-  - 'yaml'
-  - 'role-name'
+  - role-name
+exclude_paths:
+  - .copier-answers.yml

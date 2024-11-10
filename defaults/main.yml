@@ -1,7 +1,7 @@
 ---
-gitea_config_path: <ansible user home>/.config/gitea/config/
-gitea_data_path: <ansible user home>/.config/gitea/data/
+gitea_config_path: ~/.config/gitea/config/
+gitea_data_path: ~/.config/gitea/data/
 gitea_db_backend: psql
-gitea_db_path: <ansible user home>/.config/gitea/db/
+gitea_db_path: ~/.config/gitea/db/
 gitea_ssh_port: 2222
 gitea_web_port: 3000

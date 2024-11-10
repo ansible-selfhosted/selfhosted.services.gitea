@@ -9,13 +9,13 @@
 - name: Normalize default paths
   ansible.builtin.set_fact:
     gitea_config_path: "{{
-      gitea_config_path | replace('<ansible user home>', user_info.home)
+      gitea_config_path | replace('~', user_info.home)
       }}"
     gitea_data_path: "{{
-      gitea_data_path | replace('<ansible user home>', user_info.home)
+      gitea_data_path | replace('~', user_info.home)
       }}"
     gitea_db_path: "{{
-      gitea_db_path | replace('<ansible user home>', user_info.home)
+      gitea_db_path | replace('~', user_info.home)
       }}"
 
 - name: Create directories
