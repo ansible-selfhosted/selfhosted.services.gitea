@@ -40,6 +40,6 @@ argument_specs:
       gitea_web_port:
         type: "int"
         required: false
-        default: 8080
+        default: 3000
         description:
           - "The default port for the web server."
