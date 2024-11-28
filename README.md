@@ -21,9 +21,10 @@ A role to deploy Gitea using rootless Podman with systemd.
 
 |Option|Description|Type|Required|Default|choices|
 |---|---|---|---|---|---|
-|gitea_data_path|The path to the Gitea data directory.|str|False|/var/lib/gitea|
-|gitea_db_backend|The database backend to use.|str|False|psql|- psql<br>- mysql<br>- sqlite
-|gitea_db_path|The path to the Gitea database directory.|str|False|/var/lib/gitea|
+|gitea_config_path|The path to the Gitea config directory.|str|False|~/.config/gitea/config/|
+|gitea_data_path|The path to the Gitea data directory.|str|False|~/.local/share/containers/storage/gitea_data/|
+|gitea_db_backend|The database backend to use.|str|False|psql|<ul><li>psql</li><li>mysql</li><li>sqlite</li></ul>
+|gitea_db_path|The path to the Gitea database directory.|str|False|~/.local/share/containers/storage/gitea_db/|
 |gitea_ssh_port|The default port for the SSH server.|int|False|2222|
 |gitea_web_port|The default port for the web server.|int|False|3000|
 
