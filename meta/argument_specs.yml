@@ -8,10 +8,16 @@ argument_specs:
     author:
       - SpeakinTelnet
     options:
+      gitea_config_path:
+        type: "str"
+        required: false
+        default: ~/.config/gitea/config/
+        description:
+          - "The path to the Gitea config directory."
       gitea_data_path:
         type: "str"
         required: false
-        default: /var/lib/gitea
+        default: ~/.local/share/containers/storage/gitea_data/
         description:
           - "The path to the Gitea data directory."
       gitea_db_backend:
@@ -24,11 +30,10 @@ argument_specs:
           - sqlite
         description:
           - "The database backend to use."
-
       gitea_db_path:
         type: "str"
         required: false
-        default: /var/lib/gitea
+        default: ~/.local/share/containers/storage/gitea_db/
         description:
           - "The path to the Gitea database directory."
       gitea_ssh_port:
