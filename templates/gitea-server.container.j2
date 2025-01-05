@@ -18,10 +18,15 @@ Environment=GITEA__database__NAME=gitea
 Environment=GITEA__database__USER=gitea
 Environment=GITEA__database__PASSWD=gitea
 AutoUpdate=registry
-Image=docker.io/gitea/gitea:latest
+Image=docker.io/gitea/gitea:{{ gitea_version }}
 Pod=gitea.pod
-Volume={{ gitea_data_path }}:/var/lib/gitea:Z
-Volume={{ gitea_config_path }}:/etc/gitea:Z
+Volume={{ gitea_data_path }}:/var/lib/gitea{% if gitea_data_label|length > 0 %}:{{ gitea_data_label }}{% endif %}
+
+Volume={{ gitea_config_path }}:/etc/gitea{% if gitea_config_label|length > 0 %}:{{ gitea_config_label }}{% endif %}
+
+{% for gitea_var in gitea_additional_options %}
+{{ gitea_var }}
+{% endfor %}
 
 [Service]
 Restart=always

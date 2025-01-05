@@ -7,7 +7,11 @@ Environment=POSTGRES_PASSWORD=gitea
 Environment=POSTGRES_DB=gitea
 Image=docker.io/postgres:14
 Pod=gitea.pod
-Volume={{ gitea_db_path }}:/var/lib/postgresql/data:Z
+Volume={{ gitea_db_path }}:/var/lib/postgresql/data{% if gitea_db_label|length > 0 %}:{{ gitea_db_label }}{% endif %}
+
+{% for gitea_db_var in gitea_db_additional_options %}
+{{ gitea_db_var }}
+{% endfor %}
 
 [Service]
 Restart=always

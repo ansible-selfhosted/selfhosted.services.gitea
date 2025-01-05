@@ -8,18 +8,48 @@ argument_specs:
     author:
       - SpeakinTelnet
     options:
+      gitea_additional_options:
+        type: list
+        required: false
+        default: []
+        description:
+          - List of additional key=value for the Gitea quadlet container
+          - 'ex: - "Network=custom.network"'
+          - Can also be used to leave comments by preceding with a '#'
+      gitea_config_label:
+        type: str
+        required: false
+        default: ""
+        description:
+          - The labels for to the gitea config directory
+          - "Comma separated values (ex: rw,Z)"
       gitea_config_path:
         type: "str"
         required: false
         default: ~/.config/gitea/config/
         description:
           - "The path to the Gitea config directory."
+      gitea_data_label:
+        type: str
+        required: false
+        default: ""
+        description:
+          - The labels for to the gitea data directory
+          - "Comma separated values (ex: rw,Z)"
       gitea_data_path:
         type: "str"
         required: false
         default: ~/.local/share/containers/storage/gitea_data/
         description:
           - "The path to the Gitea data directory."
+      gitea_db_additional_options:
+        type: list
+        required: false
+        default: []
+        description:
+          - List of additional key=value for the database quadlet container
+          - 'ex: - "Network=custom.network"'
+          - Can also be used to leave comments by preceding with a '#'
       gitea_db_backend:
         type: "str"
         required: false
@@ -30,6 +60,13 @@ argument_specs:
           - sqlite
         description:
           - "The database backend to use."
+      gitea_db_label:
+        type: str
+        required: false
+        default: ""
+        description:
+          - The labels for to the database directory
+          - "Comma separated values (ex: rw,Z)"
       gitea_db_path:
         type: "str"
         required: false
@@ -42,6 +79,15 @@ argument_specs:
         default: 2222
         description:
           - "The default port for the SSH server."
+      gitea_version:
+        type: str
+        required: false
+        default: latest
+        description:
+          - The version of gitea Container
+        choices:
+          - latest
+          - nightly
       gitea_web_port:
         type: "int"
         required: false

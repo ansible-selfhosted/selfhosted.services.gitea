@@ -1,7 +1,13 @@
 ---
+gitea_additional_options: []
+gitea_config_label: ''
 gitea_config_path: ~/.config/gitea/config/
+gitea_data_label: ''
 gitea_data_path: ~/.local/share/containers/storage/gitea_data/
+gitea_db_additional_options: []
 gitea_db_backend: psql
+gitea_db_label: ''
 gitea_db_path: ~/.local/share/containers/storage/gitea_db/
 gitea_ssh_port: 2222
+gitea_version: latest
 gitea_web_port: 3000

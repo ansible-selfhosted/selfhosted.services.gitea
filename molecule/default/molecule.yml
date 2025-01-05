@@ -18,6 +18,11 @@ platforms:
     privileged: true
     pre_build_image: true
     systemd: true
+  - name: gitea_nightly
+    image: "quay.io/speakintelnet/pinp-molecule"
+    privileged: true
+    pre_build_image: true
+    systemd: true
 provisioner:
   name: ansible
   inventory:
@@ -30,6 +35,9 @@ provisioner:
         ansible_user: podman
       gitea_w_sqlite:
         gitea_db_backend: sqlite
+        ansible_user: podman
+      gitea_nightly:
+        gitea_version: nightly
         ansible_user: podman
 verifier:
   name: ansible
